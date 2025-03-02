@@ -1,42 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({
-        canvas: canvas,
-        antialias: true
-    });
+import { createScene } from './game.js';
+import { loadTracks } from './track.js';
 
-    camera.position.z = 5;
+let scene, camera, renderer;
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+function init() {
+  // Configuração da cena
+  const container = document.getElementById('game-container');
+  const { scene: newScene, camera: newCamera, renderer: newRenderer } = createScene(container);
+  scene = newScene;
+  camera = newCamera;
+  renderer = newRenderer;
 
-    const game = new Game(scene);
+  // Carrega os circuitos
+  const tracks = loadTracks(scene);
 
-    function animate() {
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-    }
+  // Inicia o loop de animação
+  animate();
+}
 
-    animate();
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
 
-    // Adicionar elementos do parquinho
-    const playgroundObjects = [
-        {
-            geometry: new THREE.SphereGeometry(0.5, 32, 32),
-            material: new THREE.MeshBasicMaterial({ color: 0xffff00 }),
-            position: new THREE.Vector3(-1, 0.6, 1)
-        },
-        {
-            geometry: new THREE.BoxGeometry(0.5, 0.5, 0.5),
-            material: new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
-            position: new THREE.Vector3(1, 0.3, 1)
-        }
-    ];
-
-    playgroundObjects.forEach((object) => {
-        const mesh = new THREE.Mesh(object.geometry, object.material);
-        mesh.position.copy(object.position);
-        scene.add(mesh);
-    });
-});
+init();

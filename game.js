@@ -1,65 +1,25 @@
-class Game {
-    constructor(scene) {
-        this.scene = scene;
-        this.tracks = [];
-        this.bottleCaps = [];
-        this.circuitIndex = 0;
+import { detectCollision } from './utils.js';
 
-        // Definição dos circuitos
-        const circuits = [
-            [
-                new THREE.Vector3(-2, 0, 0),
-                new THREE.Vector3(2, 0, 0),
-                new THREE.Vector3(2, 0, 2),
-                new THREE.Vector3(-2, 0, 2),
-                new THREE.Vector3(-2, 0, 0)
-            ],
-            [
-                new THREE.Vector3(-1, 0, 0),
-                new THREE.Vector3(1, 0, 0),
-                new THREE.Vector3(1, 0, 1),
-                new THREE.Vector3(-1, 0, 1),
-                new THREE.Vector3(-1, 0, 0)
-            ],
-            [
-                new THREE.Vector3(-3, 0, 0),
-                new THREE.Vector3(3, 0, 0),
-                new THREE.Vector3(3, 0, 3),
-                new THREE.Vector3(-3, 0, 3),
-                new THREE.Vector3(-3, 0, 0)
-            ]
-        ];
+export function createScene(container) {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
 
-        // Criação dos circuitos
-        circuits.forEach((path, index) => {
-            this.tracks.push(new Track(scene, `Circuito ${index + 1}`, path));
-        });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  container.appendChild(renderer.domElement);
 
-        // Criação das tampinhas
-        this.bottleCaps.push(new BottleCap(scene, 0xff0000));
-        this.bottleCaps.push(new BottleCap(scene, 0x0000ff));
+  // Posiciona a câmera
+  camera.position.set(0, 10, 20);
+  camera.lookAt(0, 0, 0);
 
-        // Eventos do mouse
-        document.addEventListener('click', (event) => {
-            const raycaster = new THREE.Raycaster();
-            const mousePosition = new THREE.Vector2();
-            mousePosition.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mousePosition.y = -(event.clientY / window.innerHeight) * 2 + 1;
-            raycaster.setFromCamera(mousePosition, scene.camera);
-            const intersects = raycaster.intersectObjects(scene.children, true);
-            if (intersects.length > 0) {
-                const target = intersects[0].point;
-                // Movimentação da tampinha
-                this.bottleCaps[0].move(target);
-            }
-        });
+  return { scene, camera, renderer };
+}
 
-        // Troca de circuito
-        document.addEventListener('keydown', (event) => {
-            if (event.key === ' ') {
-                this.circuitIndex = (this.circuitIndex + 1) % this.tracks.length;
-                console.log(`Circuito ${this.circuitIndex + 1} selecionado`);
-            }
-        });
-    }
+export function moveCap(cap, direction, speed) {
+  cap.position.addScaledVector(direction, speed);
+
+  // Verifica colisão com as bordas da pista
+  if (detectCollision(cap)) {
+    cap.position.subScaledVector(direction, speed); // Volta à posição anterior
+  }
 }
