@@ -4,6 +4,7 @@ import { loadTracks } from './track.js';
 let scene, camera, renderer;
 
 function init() {
+  // Configuração da cena
   const container = document.getElementById('game-container');
   const { scene: newScene, camera: newCamera, renderer: newRenderer } = createScene(container);
   scene = newScene;
@@ -11,7 +12,7 @@ function init() {
   renderer = newRenderer;
 
   // Carrega os circuitos
-  loadTracks(scene);
+  const tracks = loadTracks(scene);
 
   // Inicia o loop de animação
   animate();

@@ -1,6 +1,7 @@
 export function loadTracks(scene) {
     const tracks = [];
   
+    // Circuito 1
     const track1 = createTrack({
       shape: 'circle',
       radius: 5,
@@ -9,6 +10,7 @@ export function loadTracks(scene) {
     });
     tracks.push(track1);
   
+    // Circuito 2
     const track2 = createTrack({
       shape: 'oval',
       radius: 7,
@@ -17,6 +19,7 @@ export function loadTracks(scene) {
     });
     tracks.push(track2);
   
+    // Circuito 3
     const track3 = createTrack({
       shape: 'square',
       size: 10,
@@ -32,6 +35,7 @@ export function loadTracks(scene) {
   function createTrack({ shape, radius, size, position, decorations }) {
     const trackGroup = new THREE.Group();
   
+    // Cria a pista
     let geometry;
     if (shape === 'circle') {
       geometry = new THREE.CircleGeometry(radius, 32);
@@ -45,6 +49,7 @@ export function loadTracks(scene) {
     const trackMesh = new THREE.Mesh(geometry, material);
     trackGroup.add(trackMesh);
   
+    // Adiciona decorações
     decorations.forEach(decoration => addDecoration(trackGroup, decoration));
   
     trackGroup.position.set(position.x, position.y, position.z);
