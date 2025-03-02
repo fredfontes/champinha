@@ -1,2 +1,2 @@
-# champinha
-Bottle Cap Game
+# Champinha Racers
+A bottle cap tap game
