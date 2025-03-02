@@ -7,7 +7,7 @@
     <style>
         body { margin: 0; overflow: hidden; }
         canvas { display: block; }
-        #menu { position: absolute; top: 10px; left: 10px; }
+        #menu { position: absolute; top: 10px; left: 10px; z-index: 10; }
     </style>
 </head>
 <body>
@@ -19,6 +19,8 @@
             <option value="2">Pista 3 - Obstáculos</option>
         </select>
     </div>
+    <!-- Container explícito para o canvas -->
+    <div id="game-container"></div>
     <script type="importmap">
         {
             "imports": {
