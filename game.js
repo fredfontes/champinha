@@ -8,7 +8,6 @@ export function createScene(container) {
   renderer.setSize(window.innerWidth, window.innerHeight);
   container.appendChild(renderer.domElement);
 
-  // Posiciona a câmera
   camera.position.set(0, 10, 20);
   camera.lookAt(0, 0, 0);
 
@@ -18,8 +17,7 @@ export function createScene(container) {
 export function moveCap(cap, direction, speed) {
   cap.position.addScaledVector(direction, speed);
 
-  // Verifica colisão com as bordas da pista
   if (detectCollision(cap)) {
-    cap.position.subScaledVector(direction, speed); // Volta à posição anterior
+    cap.position.subScaledVector(direction, speed);
   }
 }
