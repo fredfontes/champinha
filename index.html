@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo das Tampinhas</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        #menu { position: absolute; top: 10px; left: 10px; }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <label for="trackSelect">Escolha a pista:</label>
+        <select id="trackSelect">
+            <option value="0">Pista 1 - Simples</option>
+            <option value="1">Pista 2 - Curvas</option>
+            <option value="2">Pista 3 - Obstáculos</option>
+        </select>
+    </div>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@latest/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@latest/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="game.js"></script>
+</body>
+</html>
