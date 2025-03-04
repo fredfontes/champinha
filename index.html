@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jogo de Tampinhas</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tampinha Racer</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
 </head>
 <body>
-  <div id="game-container"></div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.172.0/three.core.min.js" integrity="sha512-1gVlSJXTpUOwndW+R+czfI0yPj/gHiybB6KvMHIS9TgRXuE8TjkM0qhZOSvFeXKdfXBFvsy49vUqBSdfeszg1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="utils.js"></script>
-  <script src="track.js"></script>
-  <script src="game.js"></script>
-  <script type="module" src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon-es/0.18.0/cannon-es.min.js"></script>
+    <script src="game.js"></script>
+    
+    <button onclick="criarPista(1)">Pista 1</button>
+    <button onclick="criarPista(2)">Pista 2</button>
+    <button onclick="criarPista(3)">Pista 3</button>
 </body>
 </html>
